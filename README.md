@@ -12,6 +12,9 @@ API to find the sunny parts of an area?
 5. UI: Simple
 6. API's (POST)
 
+## User Stories
+1. As a Developer I want to be able to deploy easily.
+
 ## Milestones
 ### Pre
 - Deployment
