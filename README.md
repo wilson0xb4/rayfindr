@@ -13,7 +13,14 @@ API to find the sunny parts of an area?
 6. API's (POST)
 
 ## User Stories
+#### Developer
 1. As a Developer I want to be able to deploy easily.
+2. As a Developer I want to quickly see that my build is operational and passing tests.
+3. As a Developer I want to allow others to utilize my API for gathering data and creating unique Client interfaces.
+
+#### User
+1. As a User I want to be able to navigate to the website, and quickly locate myself on a map showing available areas of sun.
+2. As a User I want to see the most current (real-time) weather data overlaid on my map.
 
 ## Milestones
 ### Pre
