@@ -8,4 +8,4 @@ def my_view(request):
 
 @view_config(route_name='json_test', renderer='json')
 def test_json(request):
-    return {'lat': 'lat', 'long': 'long', 'time': 'time'}
+    return {'Hello World'}
