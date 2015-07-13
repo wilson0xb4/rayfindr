@@ -14,7 +14,6 @@ pyramid-debugtoolbar==2.4
 pyramid-mako==1.0.2
 pytest==2.7.2
 pytest-bdd==2.14.0
--e git+https://github.com/wilson0xb4/rayfindr.git@d46d02cfa7f96c17a95cf994a9d9153c6c886a45#egg=rayfindr-feature_framework
 repoze.lru==0.6
 six==1.9.0
 translationstring==1.3
