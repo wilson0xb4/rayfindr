@@ -3,10 +3,17 @@ API to find the sunny parts of an area?
 
 ## Build Status
 master: [rayfindr.com](http://rayfindr.com) [![Build Status](https://travis-ci.org/wilson0xb4/rayfindr.svg?branch=master)](https://travis-ci.org/wilson0xb4/rayfindr)  
-staging: [dev.rayfindr.com](http://dev.rayfindr.com) [![Build Status](https://travis-ci.org/wilson0xb4/rayfindr.svg?branch=staging)](https://travis-ci.org/wilson0xb4/rayfindr)
+dev box: [dev.rayfindr.com](http://dev.rayfindr.com)  
+staging: [![Build Status](https://travis-ci.org/wilson0xb4/rayfindr.svg?branch=staging)](https://travis-ci.org/wilson0xb4/rayfindr)
 
 ## Deployment
-[Instructions and config files](https://github.com/wilson0xb4/rayfindr-config)
+### [AWS EC2 Setup](https://github.com/wilson0xb4/rayfindr-config)
+### Local
+- `mkproject rayfindr`
+- `git clone git@github.com:wilson0xb4/rayfindr.git .`
+- `python setup.py develop`
+- `pserve development.ini`
+- view website at http://localhost:6543
 
 ## Plans
 1. Setup: Repo, AWS, Milestones / Issues, Tests (Travis)
