@@ -5,6 +5,9 @@ API to find the sunny parts of an area?
 master: [rayfindr.com](http://rayfindr.com) [![Build Status](https://travis-ci.org/wilson0xb4/rayfindr.svg?branch=master)](https://travis-ci.org/wilson0xb4/rayfindr)  
 staging: [dev.rayfindr.com](http://dev.rayfindr.com) [![Build Status](https://travis-ci.org/wilson0xb4/rayfindr.svg?branch=staging)](https://travis-ci.org/wilson0xb4/rayfindr)
 
+## Deployment
+[Instructions and config files](https://github.com/wilson0xb4/rayfindr-config)
+
 ## Plans
 1. Setup: Repo, AWS, Milestones / Issues, Tests (Travis)
 2. App Framework (Flask)
