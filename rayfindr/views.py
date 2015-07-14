@@ -39,10 +39,6 @@ def api_request(request):
 
     return Response(
         body=json.dumps({
-            'la_min': la_min,
-            'la_max': la_max,
-            'lo_min': lo_min,
-            'lo_max': lo_max,
             'alt': alt,
             'az': az,
             'vx': vx,
