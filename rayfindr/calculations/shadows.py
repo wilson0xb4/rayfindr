@@ -6,7 +6,7 @@ def get_shadow_from_points(footprint, sunvector, height):
 
     Inputs:
     footprint: a list of points representing the base of a building.
-        Points are represented by two-length lists.
+        Points are represented by two-length lists [long, lat]
         Format example: [[point1_x, point1_y], [point2_x, point2_y]]
     sunvector: tuple representing the direction and length of the sun's shadow
         projection.
@@ -39,7 +39,6 @@ def get_shadow_from_points(footprint, sunvector, height):
         poly = ogr.Geometry(ogr.wkbPolygon)
         poly.AddGeometry(ring)
         shadowpolys.append(poly)
-        import pdb; pdb.set_trace()
 
     # union all the shadow polys together
     unionpoly = shadowpolys[0]
