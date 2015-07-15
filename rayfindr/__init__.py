@@ -9,6 +9,6 @@ def main(global_config, **settings):
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('home', '/')
     config.add_route('json_test', '/json_test')
-    config.add_route('api_request', '/api_request/{test}')
+    config.add_route('api_request', '/api_request')
     config.scan()
     return config.make_wsgi_app()
