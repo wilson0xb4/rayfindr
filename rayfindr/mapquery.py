@@ -1,11 +1,11 @@
 from osgeo import ogr
+import json
 import shapefile
 
 
 shpfile = "mapdata/seattle.shp"
 driver = ogr.GetDriverByName('ESRI Shapefile')
 dataSource = driver.Open(shpfile, 0)
-rinringringring = ogr.Geometry(ogr.wkbLinearRing)
 
 LA_MIN = 47.61678170542361
 LA_MAX = 47.62401829457639
@@ -26,4 +26,13 @@ def spatial_filter(la_min, la_max, lo_min, lo_max):
     )
     layer.SetSpatialFilter(ogr.CreateGeometryFromWkt(wkt))
 
-    return layer
+    # Loop through the records and compose
+    buildings = []
+    for feature in layer:
+        geoJSON = feature.ExportToJson()
+        parsed = json.loads(geoJSON)
+        height = feature.GetField("BP99_APEX")
+        points = parsed['geometry']['coordinates']
+        buildings.append((height, points))
+
+    return buildings
