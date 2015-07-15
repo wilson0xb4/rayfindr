@@ -2,7 +2,7 @@ from osgeo import ogr
 import json
 
 
-shpfile = r"mapdata/seattle.shp"
+shpfile = r"/home/ubuntu/rayfindr/rayfindr/mapdata/seattle.shp"
 driver = ogr.GetDriverByName('ESRI Shapefile')
 dataSource = driver.Open(shpfile, 0)
 
