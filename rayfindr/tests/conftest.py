@@ -4,19 +4,14 @@ import json
 
 
 @pytest.fixture()
-def server():
-    pass
-
-
-@pytest.fixture()
-def client():
+def client_request(lat, lon):
     data = json.dumps({
         'year': 2015,
         'month': 7,
         'day': 15,
         'hour': 18,
-        'lat': 47.6204,
-        'lon': -122.3491
+        'lat': lat,
+        'lon': lon
     })
 
     headers = {
@@ -33,3 +28,8 @@ def client():
     )
 
     return r
+
+
+@pytest.fixture()
+def tile_cache():
+    return {'12:00:00': {(-122.9087, 47.2404): 'tile'}}
