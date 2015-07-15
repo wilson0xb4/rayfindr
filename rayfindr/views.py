@@ -20,7 +20,7 @@ def test_json(request):
 
 @view_config(route_name='api_request', renderer='json')
 def api_request(request):
-    api = json.loads(request)
+    api = json.loads(request.body)
     year = api['year']
     month = api['month']
     day = api['day']
