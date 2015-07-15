@@ -8,6 +8,7 @@ parse==1.6.6
 parse-type==0.3.4
 PasteDeploy==1.5.2
 py==1.4.30
+pygdal==1.11.2.1
 Pygments==2.0.2
 pyramid==1.5.7
 pyramid-chameleon==0.3
