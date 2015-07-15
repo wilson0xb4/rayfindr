@@ -20,26 +20,26 @@ def test_json(request):
 
 @view_config(route_name='api_request', renderer='json')
 def api_request(request):
-    # api = json.loads(request)
-    # year = api['year']
-    # month = api['month']
-    # day = api['day']
-    # hour = api['hour']
-    # lat = api['lat']
-    # lon = api['lon']
+    api = json.loads(request)
+    year = api['year']
+    month = api['month']
+    day = api['day']
+    hour = api['hour']
+    lat = api['lat']
+    lon = api['lon']
 
-    # # """box will have four properties - lat_min/max and lon_min/max"""
-    # # box = bb(lat, lon, .25)
-    # # la_min = box.lat_min
-    # # la_max = box.lat_max
-    # # lo_min = box.lon_min
-    # # lo_max = box.lon_max
-    # # """This function will need to get handed to the shadow function and then handed to the client"""
-    # # shp_data = sf(la_min, la_max, lo_min, lo_max)
-    # """altitude and azimuth returned from sun position"""
-    # alt, az = td(year, month, day, hour, lat, lon)
-    # """vector x and y returned from sun vector"""
-    # vx, vy = sv(az, alt)
+    # """box will have four properties - lat_min/max and lon_min/max"""
+    # box = bb(lat, lon, .25)
+    # la_min = box.lat_min
+    # la_max = box.lat_max
+    # lo_min = box.lon_min
+    # lo_max = box.lon_max
+    # """This function will need to get handed to the shadow function and then handed to the client"""
+    # shp_data = sf(la_min, la_max, lo_min, lo_max)
+    """altitude and azimuth returned from sun position"""
+    alt, az = td(year, month, day, hour, lat, lon)
+    """vector x and y returned from sun vector"""
+    vx, vy = sv(az, alt)
 
     # return Response(
     #     body=json.dumps({
