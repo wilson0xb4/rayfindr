@@ -86,5 +86,5 @@ def api_request(request):
     # first = a1 + b1 + c
     # second = a2 + b2 + c
 
-    geojson = shadow((.01, .01), test_data)
+    geojson = shadow((vx, vy), test_data)
     return geojson
