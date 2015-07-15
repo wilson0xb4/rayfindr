@@ -9,7 +9,7 @@ def get_shadow_from_data(sunvector, data):
     }
     for building in data:
         geojson = json.loads(get_shadow_from_points(sunvector, *building))
-        geojson_base['coordinates'].append(geojson['coordinates'])
+        geojson_base['coordinates'].append(geojson['coordinates'][0])
     return geojson_base
 
 
