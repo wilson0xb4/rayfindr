@@ -5,7 +5,7 @@ from rayfindr.calculations.sun_pos import time_and_location_to_sun_alt_azimuth a
 from rayfindr.calculations.bounding_box import get_bounding_box as bb
 from rayfindr.calculations.sun_vector import get_sun_vector as sv
 from rayfindr.calculations.shadows import get_shadow_from_data as shadow
-from rayfindr.mapquery import spatial_filter as sf
+import rayfindr.mapquery as mapquery
 
 
 @view_config(route_name='home', renderer='templates/mytemplate.pt')
@@ -35,7 +35,7 @@ def api_request(request):
     lo_min = box.lon_min
     lo_max = box.lon_max
     """This function will need to get handed to the shadow function and then handed to the client"""
-    shp_data = sf(la_min, la_max, lo_min, lo_max)
+    shp_data = mapquery.spatial_filter(la_min, la_max, lo_min, lo_max)
     """altitude and azimuth returned from sun position"""
     alt, az = td(year, month, day, hour, lat, lon)
     """vector x and y returned from sun vector"""
