@@ -1,8 +1,7 @@
 from pyramid.view import view_config
 from pyramid.response import Response
 import json
-from rayfindr.calculations.sun_pos import\
-    time_and_location_to_sun_alt_azimuth as td
+from rayfindr.calculations.sun_pos import time_and_location_to_sun_alt_azimuth as td
 from rayfindr.calculations.bounding_box import get_bounding_box as bb
 from rayfindr.calculations.sun_vector import get_sun_vector as sv
 from rayfindr.mapquery import spacial_filter as sf
