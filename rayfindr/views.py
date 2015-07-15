@@ -67,5 +67,4 @@ def api_request(request):
                         [-122.34926163617325, 47.62045662658992]])]
 
     geojson = shadow((0.01, 0.01), test_data)
-
-    return Response(geojson)
+    return geojson
