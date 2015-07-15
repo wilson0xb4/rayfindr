@@ -1,19 +1,24 @@
 from osgeo import ogr
 import json
-import shapefile
 
 
 shpfile = "mapdata/seattle.shp"
 driver = ogr.GetDriverByName('ESRI Shapefile')
 dataSource = driver.Open(shpfile, 0)
 
-LA_MIN = 47.61678170542361
-LA_MAX = 47.62401829457639
-LO_MIN = -122.34373192438086
-LO_MAX = -122.35446807561914
-
 
 def spatial_filter(la_min, la_max, lo_min, lo_max):
+    """Return height and goemetry for buildings in set area.
+
+    args:
+        la_min: minimun latitude
+        la_max: maximum latitude
+        lo_min: minimun longitude
+        lo_max: maximum longitude
+
+    returns: a list of tuples containing the height and list of points
+            for each building.
+    """
     layer = dataSource.GetLayer()
 
     wkt = (
@@ -26,7 +31,6 @@ def spatial_filter(la_min, la_max, lo_min, lo_max):
     )
     layer.SetSpatialFilter(ogr.CreateGeometryFromWkt(wkt))
 
-    # Loop through the records and compose
     buildings = []
     for feature in layer:
         geoJSON = feature.ExportToJson()
