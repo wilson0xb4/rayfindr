@@ -1,18 +1,18 @@
 from osgeo import ogr
 
 
-def get_shadow_from_data(data, sunvector):
+def get_shadow_from_data(sunvector, data):
     geojson_base = {
         "type": "Polygon",
         "coordinates": []
     }
     for building in data:
-        geojson = get_shadow_from_points(*building, sunvector=sunvector)
+        geojson = get_shadow_from_points(sunvector, *building)
         geojson_base['coordinates'].push(geojson['coordinates'])
     return geojson_base
 
 
-def get_shadow_from_points(footprint, height, sunvector):
+def get_shadow_from_points(sunvector, height, footprint):
     """Return a geoJSON polygon representing a building shadow.
 
     Inputs:
@@ -70,4 +70,4 @@ if __name__ == '__main__':
     ]
     sunvector = (1, 1)
     height = 2
-    print get_shadow_from_points(footprint, height, sunvector)
+    print get_shadow_from_points(sunvector, height, footprint)
