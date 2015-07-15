@@ -5,7 +5,7 @@ from rayfindr.calculations.sun_pos import time_and_location_to_sun_alt_azimuth a
 from rayfindr.calculations.bounding_box import get_bounding_box as bb
 from rayfindr.calculations.sun_vector import get_sun_vector as sv
 from rayfindr.calculations.shadows import get_shadow_from_data as shadow
-from rayfindr.mapquery import spacial_filter as sf
+from rayfindr.mapquery import spatial_filter as sf
 
 
 @view_config(route_name='home', renderer='templates/mytemplate.pt')
