@@ -17,6 +17,6 @@ def get_sun_vector(sun_azimuth, sun_altitude):
     vx = cos(sun_azimuth) * magnitude
     vy = sin(sun_azimuth) * magnitude
     # convert from feet to lon / lat
-    vx = (vx / 3280.4) * (90 / 10000)
-    vy = (vy / 3280.4) * (90 / 10000)
+    vx = (vx / 3280.4) * 0.009
+    vy = (vy / 3280.4) * 0.009
     return vx, vy
