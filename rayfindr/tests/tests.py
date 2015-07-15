@@ -1,14 +1,4 @@
-import pytest
-
-
-@pytest.fixture()
-def connection(request):
-    pass
-
-
-@pytest.fixture()
-def app(connection):
-    pass
+# import pytest
 
 
 def test_receive_location(app):
