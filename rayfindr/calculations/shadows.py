@@ -1,4 +1,5 @@
 from osgeo import ogr
+import json
 
 
 def get_shadow_from_data(sunvector, data):
@@ -7,8 +8,8 @@ def get_shadow_from_data(sunvector, data):
         "coordinates": []
     }
     for building in data:
-        geojson = get_shadow_from_points(sunvector, *building)
-        geojson_base['coordinates'].push(geojson['coordinates'])
+        geojson = json.loads(get_shadow_from_points(sunvector, *building))
+        geojson_base['coordinates'].append(geojson['coordinates'])
     return geojson_base
 
 
