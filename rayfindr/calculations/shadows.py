@@ -57,7 +57,8 @@ def get_shadow_from_points(sunvector, height, footprint):
         projection.append(proj_point)
 
     # for each footprint edge and matching projection edge, make a shadow poly
-    shadowpolys = []
+    # shadowpolys = []
+    shadow_geometry = ogr.Geometry(ogr.wkbMultiPolygon)
     for i, point in enumerate(footprint[:-1]):
         ring = ogr.Geometry(ogr.wkbLinearRing)
         ring.AddPoint(*point)
@@ -68,13 +69,15 @@ def get_shadow_from_points(sunvector, height, footprint):
 
         poly = ogr.Geometry(ogr.wkbPolygon)
         poly.AddGeometry(ring)
-        shadowpolys.append(poly)
+        # shadowpolys.append(poly)
+        shadow_geometry.AddGeometry(poly)
 
     # union all the shadow polys together
-    unionpoly = shadowpolys[0]
-    for poly in shadowpolys[1:]:
-        # poly = poly.Boundary()
-        unionpoly = unionpoly.Union(poly)
+    # unionpoly = shadowpolys[0]
+    # for poly in shadowpolys[1:]:
+    #     # poly = poly.Boundary()
+    #     unionpoly = unionpoly.Union(poly)
+    unionpoly = shadow_geometry.UnionCascaded()
 
     # export the resulting shape to geoJSON
     geojson = unionpoly.ExportToJson()
