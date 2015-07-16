@@ -73,7 +73,7 @@ def get_shadow_from_points(sunvector, height, footprint):
     # union all the shadow polys together
     unionpoly = shadowpolys[0]
     for poly in shadowpolys[1:]:
-        poly = poly.Boundary()
+        # poly = poly.Boundary()
         unionpoly = unionpoly.Union(poly)
 
     # export the resulting shape to geoJSON
