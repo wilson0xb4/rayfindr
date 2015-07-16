@@ -29,12 +29,6 @@ def get_sun_vector(altitude, azimuth):
     Outputs:
     Tuple representing vector in format (longitude, latitude)
     """
-    # correct for library orientation
-    if azimuth > 0:
-        azimuth = abs(azimuth - 180)
-    else:
-        azimuth = abs(azimuth) + 180
-
     magnitude = 1 / tan(altitude)
     vector_x = cos(azimuth) * magnitude
     vector_y = sin(azimuth) * magnitude
