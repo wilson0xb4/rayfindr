@@ -17,10 +17,14 @@ def get_sun_vector(year, month, day, hour, lat, lon):
 
     1 degrees = 0.0174532925 radians
     """
-    rad_mult = 0.0174532925
     d_time = datetime(year, month, day, hour)
-    sun_azimuth = (GetAzimuth(lat, lon, d_time) * rad_mult)
-    sun_altitude = (GetAltitude(lat, lon, d_time) * rad_mult)
+    sun_azimuth = GetAzimuth(lat, lon, d_time)
+    # correct for library orientation
+    if sun_azimuth > 0:
+        sun_azimuth = abs(sun_azimuth - 180)
+    else:
+        sun_azimuth = abs(sun_azimuth) + 180
+    sun_altitude = GetAltitude(lat, lon, d_time)
 
     magnitude = 1 / tan(sun_altitude)
     vx = cos(sun_azimuth) * magnitude
