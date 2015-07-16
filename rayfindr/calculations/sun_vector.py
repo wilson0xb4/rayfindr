@@ -1,4 +1,5 @@
 from math import sin, cos, tan
+import numpy
 from Pysolar import GetAltitude, GetAzimuth
 
 
@@ -10,11 +11,11 @@ def get_azimuth(date, lat, lon):
         azimuth = 0
     else:
         azimuth = abs(azimuth - 180)
-    return azimuth
+    return int(round(azimuth))
 
 
 def get_altitude(date, lat, lon):
-    return GetAltitude(lat, lon, date)
+    return int(round(GetAltitude(lat, lon, date)))
 
 
 # reference:
@@ -29,10 +30,10 @@ def get_sun_vector(altitude, azimuth):
     Outputs:
     Tuple representing vector in format (longitude, latitude)
     """
-    magnitude = 1 / tan(altitude)
-    vector_x = cos(azimuth) * magnitude
-    vector_y = sin(azimuth) * magnitude
-    # convert from feet to lon / lat
-    vector_x = (vector_x / 3280.4) * 0.009
-    vector_y = (vector_y / 3280.4) * 0.009
+    alt_rad = numpy.deg2rad(altitude)
+    az_rad = numpy.deg2rad(azimuth)
+    rad180 = numpy.deg2rad(180)
+    magnitude = 1 / tan(alt_rad)
+    vector_x = sin(az_rad - rad180) * magnitude
+    vector_y = cos(az_rad - rad180) * magnitude
     return vector_x, vector_y
