@@ -25,6 +25,7 @@ def api_request(request):
     month = api['month']
     day = api['day']
     hour = api['hour']
+    minute = api['minute']
     lat = api['lat']
     lon = api['lon']
     la_min = api['boundLatMin']
@@ -37,7 +38,7 @@ def api_request(request):
     shp_data = mapquery.spatial_filter(la_min, la_max, lo_min, lo_max)
 
     """Get altitude and azimuth"""
-    d_time = datetime(year, month, day, hour)
+    d_time = datetime(year, month, day, hour, minute)
     altitude = get_altitude(d_time, lat, lon)
     azimuth = get_azimuth(d_time, lat, lon)
 
