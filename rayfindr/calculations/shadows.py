@@ -34,11 +34,6 @@ def get_shadow_from_points(sunvector, height, footprint):
     projection = []
     vx, vy = sunvector
 
-    #
-    # deal with nested coordinates!
-    #
-    # this uses first entry
-    # dropping any extra data
     footprint = footprint[0]
     for point in footprint:
         proj_point = [
@@ -57,9 +52,7 @@ def get_shadow_from_points(sunvector, height, footprint):
         ring.AddPoint(*footprint[i+1])
         ring.AddPoint(*point)
 
-        poly = ogr.Geometry(ogr.wkbPolygon)
-        poly.AddGeometry(ring)
-        shadow_geometry.AddGeometry(poly)
+        shadow_geometry.AddGeometry(ring)
 
     unionpoly = shadow_geometry.UnionCascaded()
     return unionpoly
