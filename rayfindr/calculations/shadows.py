@@ -52,7 +52,9 @@ def get_shadow_from_points(sunvector, height, footprint):
         ring.AddPoint(*footprint[i+1])
         ring.AddPoint(*point)
 
-        shadow_geometry.AddGeometry(ring)
+        poly = ogr.Geometry(ogr.wkbPolygon)
+        poly.AddGeometry(ring)
+        shadow_geometry.AddGeometry(poly)
 
     unionpoly = shadow_geometry.UnionCascaded()
     return unionpoly
