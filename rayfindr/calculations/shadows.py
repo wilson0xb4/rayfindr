@@ -5,8 +5,7 @@ import json
 def get_shadow_from_data(sunvector, data):
     geojson_base = {
         "type": "FeatureCollection",
-        "features": [
-        ]
+        "features": []
     }
     for building in data:
         geojson = json.loads(get_shadow_from_points(sunvector, *building))
@@ -74,6 +73,7 @@ def get_shadow_from_points(sunvector, height, footprint):
     # union all the shadow polys together
     unionpoly = shadowpolys[0]
     for poly in shadowpolys[1:]:
+        poly = poly.Boundary()
         unionpoly = unionpoly.Union(poly)
 
     # export the resulting shape to geoJSON
