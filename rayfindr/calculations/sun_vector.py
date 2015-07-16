@@ -1,5 +1,5 @@
-from math import sin, cos, tan
 import numpy
+from math import sin, cos, tan
 from Pysolar import GetAltitude, GetAzimuth
 
 

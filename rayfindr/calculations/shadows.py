@@ -3,7 +3,6 @@ import json
 
 
 def get_shadow_from_data(sunvector, data):
-
     result = None
     multi_building = ogr.Geometry(ogr.wkbMultiPolygon)
 
@@ -30,7 +29,6 @@ def get_shadow_from_points(sunvector, height, footprint):
     geoJSON object
     """
 
-    # make a list of points representing the projected footprint
     projection = []
     vx, vy = sunvector
     height_x = (vx / 3280.4) * 0.009
@@ -44,7 +42,6 @@ def get_shadow_from_points(sunvector, height, footprint):
         ]
         projection.append(proj_point)
 
-    # for each footprint edge and matching projection edge, make a shadow poly
     shadow_geometry = ogr.Geometry(ogr.wkbMultiPolygon)
     for i, point in enumerate(footprint[:-1]):
         ring = ogr.Geometry(ogr.wkbLinearRing)
@@ -60,15 +57,3 @@ def get_shadow_from_points(sunvector, height, footprint):
 
     unionpoly = shadow_geometry.UnionCascaded()
     return unionpoly
-
-if __name__ == '__main__':
-    footprint = [
-        [0, 0],
-        [1, 0],
-        [1, 1],
-        [0, 1],
-        [0, 0]
-    ]
-    sunvector = (1, 1)
-    height = 2
-    print get_shadow_from_points(sunvector, height, footprint)
