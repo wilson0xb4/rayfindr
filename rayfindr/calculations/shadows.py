@@ -4,13 +4,22 @@ import json
 
 def get_shadow_from_data(sunvector, data):
     geojson_base = {
-        "type": "Polygon",
-        "coordinates": []
+        "type": "FeatureCollection",
+        "features": [
+        ]
     }
     for building in data:
         geojson = json.loads(get_shadow_from_points(sunvector, *building))
         try:
-            geojson_base['coordinates'].append(geojson['coordinates'][0])
+            # geojson_base['coordinates'].append(geojson['coordinates'][0])
+            feature = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": geojson['coordinates']
+                }
+            }
+            geojson_base["features"].append(feature)
         except KeyError:
             continue
     return geojson_base
