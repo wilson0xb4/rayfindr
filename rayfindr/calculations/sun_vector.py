@@ -3,7 +3,14 @@ from Pysolar import GetAltitude, GetAzimuth
 
 
 def get_azimuth(date, lat, lon):
-    return GetAzimuth(lat, lon, date)
+    azimuth = GetAzimuth(lat, lon, date)
+    if azimuth < -180:
+        azimuth = abs(azimuth) - 180
+    elif azimuth == -180:
+        azimuth = 0
+    else:
+        azimuth = abs(azimuth - 180)
+    return azimuth
 
 
 def get_altitude(date, lat, lon):
