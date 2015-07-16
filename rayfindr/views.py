@@ -25,18 +25,16 @@ def api_request(request):
     month = api['month']
     day = api['day']
     hour = api['hour']
+    minute = api['minute']
     lat = api['lat']
     lon = api['lon']
-    minute = api['minute']
+    la_min = api['boundLatMin']
+    la_max = api['boundLatMax']
+    lo_min = api['boundLonMin']
+    lo_max = api['boundLonMax']
 
-    """box will have four properties - lat_min/max and lon_min/max"""
-    box = bb(lat, lon, .25)
-    la_min = box.lat_min
-    la_max = box.lat_max
-    lo_min = box.lon_min
-    lo_max = box.lon_max
-    """This function will need to get handed to the shadow function and
-    then handed to the client"""
+    """This function will need to get handed to the shadow function
+    and then handed to the client"""
     shp_data = mapquery.spatial_filter(la_min, la_max, lo_min, lo_max)
 
     """Get altitude and azimuth"""

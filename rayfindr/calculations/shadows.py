@@ -3,25 +3,16 @@ import json
 
 
 def get_shadow_from_data(sunvector, data):
-    geojson_base = {
-        "type": "FeatureCollection",
-        "features": []
-    }
+
+    result = None
+    multi_building = ogr.Geometry(ogr.wkbMultiPolygon)
+
     for building in data:
-        geojson = json.loads(get_shadow_from_points(sunvector, *building))
-        try:
-            # geojson_base['coordinates'].append(geojson['coordinates'][0])
-            feature = {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Polygon",
-                    "coordinates": geojson['coordinates']
-                }
-            }
-            geojson_base["features"].append(feature)
-        except KeyError:
-            continue
-    return geojson_base
+        geo_building = get_shadow_from_points(sunvector, *building)
+        multi_building.AddGeometry(geo_building)
+        result = multi_building.UnionCascaded()
+
+    return json.loads(result.ExportToJson())
 
 
 def get_shadow_from_points(sunvector, height, footprint):
@@ -42,46 +33,33 @@ def get_shadow_from_points(sunvector, height, footprint):
     # make a list of points representing the projected footprint
     projection = []
     vx, vy = sunvector
+    height_x = (vx / 3280.4) * 0.009
+    height_y = (vy / 3280.4) * 0.009
 
-    #
-    # deal with nested coordinates!
-    #
-    # this uses first entry
-    # dropping any extra data
     footprint = footprint[0]
     for point in footprint:
         proj_point = [
-            point[0] + vx * height,
-            point[1] + vy * height
+            point[0] + height_x * height,
+            point[1] + height_y * height
         ]
         projection.append(proj_point)
 
     # for each footprint edge and matching projection edge, make a shadow poly
-    shadowpolys = []
-    # shadow_geometry = ogr.Geometry(ogr.wkbMultiPolygon)
+    shadow_geometry = ogr.Geometry(ogr.wkbMultiPolygon)
     for i, point in enumerate(footprint[:-1]):
         ring = ogr.Geometry(ogr.wkbLinearRing)
         ring.AddPoint(*point)
         ring.AddPoint(*projection[i])
-        ring.AddPoint(*projection[i+1])
-        ring.AddPoint(*footprint[i+1])
+        ring.AddPoint(*projection[i + 1])
+        ring.AddPoint(*footprint[i + 1])
         ring.AddPoint(*point)
 
         poly = ogr.Geometry(ogr.wkbPolygon)
         poly.AddGeometry(ring)
-        shadowpolys.append(poly)
-        # shadow_geometry.AddGeometry(poly)
+        shadow_geometry.AddGeometry(poly)
 
-    # union all the shadow polys together
-    unionpoly = shadowpolys[0]
-    for poly in shadowpolys[1:]:
-        # poly = poly.Boundary()
-        unionpoly = unionpoly.Union(poly)
-    # unionpoly =shadow_geometry.UnionCascaded()
-
-    # export the resulting shape to geoJSON
-    geojson = unionpoly.ExportToJson()
-    return geojson
+    unionpoly = shadow_geometry.UnionCascaded()
+    return unionpoly
 
 if __name__ == '__main__':
     footprint = [
