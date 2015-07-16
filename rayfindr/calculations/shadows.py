@@ -14,7 +14,7 @@ def get_shadow_from_data(sunvector, data):
             feature = {
                 "type": "Feature",
                 "geometry": {
-                    "type": "Polygon",
+                    "type": "MultiPolygon",
                     "coordinates": geojson['coordinates']
                 }
             }
