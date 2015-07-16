@@ -1,5 +1,4 @@
-from math import sin, cos, tan
-import numpy
+from math import sin, cos, tan, radians
 from Pysolar import GetAltitude, GetAzimuth
 
 
@@ -30,9 +29,9 @@ def get_sun_vector(altitude, azimuth):
     Outputs:
     Tuple representing vector in format (longitude, latitude)
     """
-    alt_rad = numpy.deg2rad(altitude)
-    az_rad = numpy.deg2rad(azimuth)
-    rad180 = numpy.deg2rad(180)
+    alt_rad = radians(altitude)
+    az_rad = radians(azimuth)
+    rad180 = radians(180)
     magnitude = 1 / tan(alt_rad)
     vector_x = sin(az_rad - rad180) * magnitude
     vector_y = cos(az_rad - rad180) * magnitude
