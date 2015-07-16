@@ -1,6 +1,6 @@
 from pyramid.view import view_config
 import json
-from rayfindr.calculations.sun_pos import time_and_location_to_sun_alt_azimuth as td
+# from rayfindr.calculations.sun_pos import time_and_location_to_sun_alt_azimuth as td
 from rayfindr.calculations.bounding_box import get_bounding_box as bb
 from rayfindr.calculations.sun_vector import get_sun_vector as sv
 from rayfindr.calculations.shadows import get_shadow_from_data as shadow
@@ -36,10 +36,8 @@ def api_request(request):
     """This function will need to get handed to the shadow function and
     then handed to the client"""
     shp_data = mapquery.spatial_filter(la_min, la_max, lo_min, lo_max)
-    """altitude and azimuth returned from sun position"""
-    alt, az = td(year, month, day, hour, lat, lon)
     """vector x and y returned from sun vector"""
-    vx, vy = sv(az, alt)
+    vx, vy = sv(year, month, day, hour, lat, lon)
 
     geojson = shadow((vx, vy), shp_data)
     return geojson
