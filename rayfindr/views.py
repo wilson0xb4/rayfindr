@@ -44,7 +44,7 @@ def api_request(request):
 
     """Check if sun is set"""
     if altitude <= 0:
-        return {}
+        return {"error": "night"}
 
     """vector x and y returned from sun vector"""
     vx, vy = get_sun_vector(altitude, azimuth)
