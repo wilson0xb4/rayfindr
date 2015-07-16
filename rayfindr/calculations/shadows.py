@@ -8,12 +8,8 @@ def get_shadow_from_data(sunvector, data):
         "coordinates": []
     }
     for building in data:
-        try:
-            geojson = json.loads(get_shadow_from_points(sunvector, *building))
-            for point in geojson['coordinates'][0]:
-                geojson_base['coordinates'].append(point)
-        except TypeError:
-            continue
+        geojson = json.loads(get_shadow_from_points(sunvector, *building))
+        geojson_base['coordinates'].append(geojson['coordinates'][0])
     return geojson_base
 
 
@@ -51,7 +47,7 @@ def get_shadow_from_points(sunvector, height, footprint):
 
     # for each footprint edge and matching projection edge, make a shadow poly
     shadowpolys = []
-    for i, point in enumerate(footprint[:-2]):
+    for i, point in enumerate(footprint[:-1]):
         ring = ogr.Geometry(ogr.wkbLinearRing)
         ring.AddPoint(*point)
         ring.AddPoint(*projection[i])
