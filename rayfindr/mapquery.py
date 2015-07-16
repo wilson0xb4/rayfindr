@@ -2,7 +2,7 @@ from osgeo import ogr
 import json
 
 
-shpfile = r"mapdata/seattle.shp"
+shpfile = r"/home/ubuntu/rayfindr/rayfindr/mapdata/seattle.shp"
 driver = ogr.GetDriverByName('ESRI Shapefile')
 dataSource = driver.Open(shpfile, 0)
 
@@ -33,10 +33,13 @@ def spatial_filter(la_min, la_max, lo_min, lo_max):
 
     buildings = []
     for feature in layer:
-        geoJSON = feature.ExportToJson()
-        parsed = json.loads(geoJSON)
-        height = feature.GetField("BP99_APEX")
-        points = parsed['geometry']['coordinates']
+        try:
+            geoJSON = feature.ExportToJson()
+            parsed = json.loads(geoJSON)
+            height = feature.GetField("BP99_APEX")
+            points = parsed['geometry']['coordinates']
+        except TypeError:
+            continue
         buildings.append((height, points))
 
     return buildings

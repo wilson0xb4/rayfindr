@@ -1,5 +1,4 @@
 from pyramid.view import view_config
-# from pyramid.response import Response
 import json
 # from rayfindr.calculations.sun_pos import time_and_location_to_sun_alt_azimuth as td
 from rayfindr.calculations.bounding_box import get_bounding_box as bb
@@ -34,7 +33,8 @@ def api_request(request):
     la_max = box.lat_max
     lo_min = box.lon_min
     lo_max = box.lon_max
-    """This function will need to get handed to the shadow function and then handed to the client"""
+    """This function will need to get handed to the shadow function and
+    then handed to the client"""
     shp_data = mapquery.spatial_filter(la_min, la_max, lo_min, lo_max)
     """vector x and y returned from sun vector"""
     vx, vy = sv(year, month, day, hour, lat, lon)
