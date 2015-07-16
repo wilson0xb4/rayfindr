@@ -1,11 +1,18 @@
 from math import sin, cos, tan
 from Pysolar import GetAltitude, GetAzimuth
-from datetime import datetime
+
+
+def get_azimuth(date, lat, lon):
+    return GetAzimuth(lat, lon, date)
+
+
+def get_altitude(date, lat, lon):
+    return GetAltitude(lat, lon, date)
 
 
 # reference:
 # http://www.powerfromthesun.net/Book/chapter03/chapter03.html#3.3.1 Simple Shadows
-def get_sun_vector(year, month, day, hour, lat, lon):
+def get_sun_vector(altitude, azimuth):
     """Return a vector representing shadow projection of the sun.
 
     Inputs:
@@ -14,22 +21,17 @@ def get_sun_vector(year, month, day, hour, lat, lon):
 
     Outputs:
     Tuple representing vector in format (longitude, latitude)
-
-    1 degrees = 0.0174532925 radians
     """
-    d_time = datetime(year, month, day, hour)
-    sun_azimuth = GetAzimuth(lat, lon, d_time)
     # correct for library orientation
-    if sun_azimuth > 0:
-        sun_azimuth = abs(sun_azimuth - 180)
+    if azimuth > 0:
+        azimuth = abs(azimuth - 180)
     else:
-        sun_azimuth = abs(sun_azimuth) + 180
-    sun_altitude = GetAltitude(lat, lon, d_time)
+        azimuth = abs(azimuth) + 180
 
-    magnitude = 1 / tan(sun_altitude)
-    vx = cos(sun_azimuth) * magnitude
-    vy = sin(sun_azimuth) * magnitude
+    magnitude = 1 / tan(altitude)
+    vector_x = cos(azimuth) * magnitude
+    vector_y = sin(azimuth) * magnitude
     # convert from feet to lon / lat
-    vx = (vx / 3280.4) * 0.009
-    vy = (vy / 3280.4) * 0.009
-    return vx, vy
+    vector_x = (vector_x / 3280.4) * 0.009
+    vector_y = (vector_y / 3280.4) * 0.009
+    return vector_x, vector_y
