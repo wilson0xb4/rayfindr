@@ -27,7 +27,7 @@ def api_request(request):
     hour = api['hour']
     lat = api['lat']
     lon = api['lon']
-    minute = api['min']
+    minute = api['minute']
 
     """box will have four properties - lat_min/max and lon_min/max"""
     box = bb(lat, lon, .25)
