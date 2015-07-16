@@ -14,15 +14,15 @@ def get_sun_vector(year, month, day, hour, lat, lon):
 
     Outputs:
     Tuple representing vector in format (longitude, latitude)
+
+    1 degrees = 0.0174532925 radians
     """
+    rad_mult = 0.0174532925
     d_time = datetime(year, month, day, hour)
     sun_azimuth = GetAzimuth(lat, lon, d_time)
     sun_altitude = GetAltitude(lat, lon, d_time)
-<<<<<<< Updated upstream
-=======
 
     sun_altitude = sun_altitude * rad_mult
->>>>>>> Stashed changes
 
     magnitude = 1 / tan(sun_altitude)
     vx = cos(sun_azimuth) * magnitude
