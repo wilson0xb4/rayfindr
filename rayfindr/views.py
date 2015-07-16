@@ -27,6 +27,7 @@ def api_request(request):
     hour = api['hour']
     lat = api['lat']
     lon = api['lon']
+    minute = api['min']
 
     """box will have four properties - lat_min/max and lon_min/max"""
     box = bb(lat, lon, .25)
@@ -39,7 +40,7 @@ def api_request(request):
     shp_data = mapquery.spatial_filter(la_min, la_max, lo_min, lo_max)
 
     """Get altitude and azimuth"""
-    d_time = datetime(year, month, day, hour)
+    d_time = datetime(year, month, day, hour, minute)
     altitude = get_altitude(d_time, lat, lon)
     azimuth = get_azimuth(d_time, lat, lon)
 
