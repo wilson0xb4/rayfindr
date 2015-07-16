@@ -8,9 +8,12 @@ def get_shadow_from_data(sunvector, data):
         "coordinates": []
     }
     for building in data:
-        geojson = json.loads(get_shadow_from_points(sunvector, *building))
-        for point in geojson['coordinates'][0]:
-            geojson_base['coordinates'].append(point)
+        try:
+            geojson = json.loads(get_shadow_from_points(sunvector, *building))
+            for point in geojson['coordinates'][0]:
+                geojson_base['coordinates'].append(point)
+        except TypeError:
+            continue
     return geojson_base
 
 
@@ -32,6 +35,13 @@ def get_shadow_from_points(sunvector, height, footprint):
     # make a list of points representing the projected footprint
     projection = []
     vx, vy = sunvector
+
+    #
+    # deal with nested coordinates!
+    #
+    # this uses first entry
+    # dropping any extra data
+    footprint = footprint[0]
     for point in footprint:
         proj_point = [
             point[0] + vx * height,
