@@ -33,12 +33,14 @@ def get_shadow_from_points(sunvector, height, footprint):
     # make a list of points representing the projected footprint
     projection = []
     vx, vy = sunvector
+    height_x = (vx / 3280.4) * 0.009
+    height_y = (vy / 3280.4) * 0.009
 
     footprint = footprint[0]
     for point in footprint:
         proj_point = [
-            point[0] + vx * height,
-            point[1] + vy * height
+            point[0] + height_x * height,
+            point[1] + height_y * height
         ]
         projection.append(proj_point)
 
@@ -48,8 +50,8 @@ def get_shadow_from_points(sunvector, height, footprint):
         ring = ogr.Geometry(ogr.wkbLinearRing)
         ring.AddPoint(*point)
         ring.AddPoint(*projection[i])
-        ring.AddPoint(*projection[i+1])
-        ring.AddPoint(*footprint[i+1])
+        ring.AddPoint(*projection[i + 1])
+        ring.AddPoint(*footprint[i + 1])
         ring.AddPoint(*point)
 
         shadow_geometry.AddGeometry(ring)
