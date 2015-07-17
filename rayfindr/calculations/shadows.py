@@ -3,16 +3,36 @@ import json
 
 
 def get_shadow_from_data(sunvector, data):
+    """
+    Return JSON response using get_shadow_from_points function, and unioning
+    polygon shapes into one output.
 
+    Inputs:
+        Sunvector: Expected tuple of x and y vector multiplier. This data is
+        provided by sun_vector.py.
+        Data: Expected polygon shapes from building feature data passed in
+        as shape data.
+
+    Output:
+        Results: JSON output contains feature data unioned together as one
+        complete data package.
+    """
     result = None
     multi_building = ogr.Geometry(ogr.wkbMultiPolygon)
 
     for building in data:
-        geo_building = get_shadow_from_points(sunvector, *building)
+        try:
+            geo_building = get_shadow_from_points(sunvector, *building)
+        except TypeError:
+            continue
+
         multi_building.AddGeometry(geo_building)
         result = multi_building.UnionCascaded()
 
-    return json.loads(result.ExportToJson())
+    try:
+        return json.loads(result.ExportToJson())
+    except AttributeError:
+        return {"error": "something broke?"}
 
 
 def get_shadow_from_points(sunvector, height, footprint):
@@ -30,7 +50,6 @@ def get_shadow_from_points(sunvector, height, footprint):
     geoJSON object
     """
 
-    # make a list of points representing the projected footprint
     projection = []
     vx, vy = sunvector
     height_x = (vx / 3280.4) * 0.009
@@ -44,7 +63,6 @@ def get_shadow_from_points(sunvector, height, footprint):
         ]
         projection.append(proj_point)
 
-    # for each footprint edge and matching projection edge, make a shadow poly
     shadow_geometry = ogr.Geometry(ogr.wkbMultiPolygon)
     for i, point in enumerate(footprint[:-1]):
         ring = ogr.Geometry(ogr.wkbLinearRing)
@@ -60,15 +78,3 @@ def get_shadow_from_points(sunvector, height, footprint):
 
     unionpoly = shadow_geometry.UnionCascaded()
     return unionpoly
-
-if __name__ == '__main__':
-    footprint = [
-        [0, 0],
-        [1, 0],
-        [1, 1],
-        [0, 1],
-        [0, 0]
-    ]
-    sunvector = (1, 1)
-    height = 2
-    print get_shadow_from_points(sunvector, height, footprint)
