@@ -1,6 +1,9 @@
+import os
 import pytest
 from datetime import datetime
+from osgeo import ogr
 from rayfindr.calculations import sun_vector as sv
+from rayfindr.mapquery import spatial_filter, HERE
 
 
 azimuth_in_out = [
@@ -70,7 +73,15 @@ def test_get_sun_vector_271_to_359():
 
 
 def test_spatial_filter():
-    pass
+    shapefile = os.path.join(HERE, 'tests/code_fellows/code_fellows.shp')
+    la_min, la_max, lo_min, lo_max = (47.6197, 47.6244, -122.3301, -122.3383)
+    features = spatial_filter(
+        la_min, la_max, lo_min, lo_max, datafile=shapefile
+    )
+    sorted_height = sorted(features, key=lambda feat: feat[0])
+    tallest = sorted_height[-1]
+    assert len(sorted_height) == 121
+    assert tallest[0] == 277
 
 
 def test_get_shadow_from_data():

@@ -1,7 +1,10 @@
-from osgeo import ogr
 import json
+import os
+from osgeo import ogr
 
-SHPFILE = r"/home/ubuntu/rayfindr/rayfindr/mapdata/seattle.shp"
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+SHPFILE = os.path.join(HERE, 'mapdata/seattle.shp')
 
 
 def spatial_filter(la_min, la_max, lo_min, lo_max, datafile=SHPFILE):
@@ -40,6 +43,7 @@ def spatial_filter(la_min, la_max, lo_min, lo_max, datafile=SHPFILE):
             points = parsed['geometry']['coordinates']
         except TypeError:
             continue
-        buildings.append((height, points))
+        if height > 0:
+            buildings.append((height, points))
 
     return buildings
