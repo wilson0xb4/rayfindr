@@ -10,6 +10,9 @@ language: python
 python:
   - "2.7"
 
+virtualenv:
+  system_site_packages: true
+
 # Uncomment for GDAL intall if needed for testing
 before_install:
     - sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
