@@ -1,13 +1,13 @@
-from osgeo import ogr
 import json
+import os
+from osgeo import ogr
 
 
-shpfile = r"/home/ubuntu/rayfindr/rayfindr/mapdata/seattle.shp"
-driver = ogr.GetDriverByName('ESRI Shapefile')
-dataSource = driver.Open(shpfile, 0)
+HERE = os.path.dirname(os.path.abspath(__file__))
+SHPFILE = os.path.join(HERE, 'mapdata/seattle.shp')
 
 
-def spatial_filter(la_min, la_max, lo_min, lo_max):
+def spatial_filter(la_min, la_max, lo_min, lo_max, datafile=SHPFILE):
     """Return height and goemetry for buildings in set area.
 
     args:
@@ -19,6 +19,9 @@ def spatial_filter(la_min, la_max, lo_min, lo_max):
     returns: a list of tuples containing the height and list of points
             for each building.
     """
+    shapefile = datafile
+    driver = ogr.GetDriverByName('ESRI Shapefile')
+    dataSource = driver.Open(shapefile, 0)
     layer = dataSource.GetLayer()
 
     wkt = (
@@ -40,6 +43,7 @@ def spatial_filter(la_min, la_max, lo_min, lo_max):
             points = parsed['geometry']['coordinates']
         except TypeError:
             continue
-        buildings.append((height, points))
+        if height > 0:
+            buildings.append((height, points))
 
     return buildings
