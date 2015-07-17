@@ -2,9 +2,13 @@ import json
 import os
 from osgeo import ogr
 
-
+TESTING = os.environ.get('TRAVIS', False)
 HERE = os.path.dirname(os.path.abspath(__file__))
-SHPFILE = os.path.join(HERE, 'mapdata/seattle.shp')
+
+if TESTING:
+    SHPFILE = os.path.join(HERE, 'tests/code_fellows/code_fellows.shp')
+else:
+    SHPFILE = os.path.join(HERE, 'mapdata/seattle.shp')
 
 
 def spatial_filter(la_min, la_max, lo_min, lo_max, datafile=SHPFILE):
