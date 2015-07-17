@@ -8,6 +8,14 @@ from rayfindr.mapquery import HERE
 
 
 @pytest.fixture()
+def app():
+    from rayfindr import main
+    from webtest import TestApp
+    app = main({})
+    return TestApp(app)
+
+
+@pytest.fixture()
 def client_request(lat, lon):
     data = json.dumps({
         'year': 2015,
