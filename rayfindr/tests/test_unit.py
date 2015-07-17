@@ -16,12 +16,6 @@ altitude_in_out = [
     [datetime(2015, 7, 17, 2), (15, 20)]
 ]
 
-sun_vector_in_out = [
-    [13.1, 72.57, (-1, -1)],
-    [63.52, 171.91, (-1, 1)],
-    [18.07, 282.03, (1, -1)]
-]
-
 
 @pytest.mark.parametrize("date, az_range", azimuth_in_out)
 def test_get_azimuth(date, az_range):
@@ -43,18 +37,36 @@ def test_get_altitude(date, alt_range):
     assert actual > az_low and actual < az_high
 
 
-@pytest.mark.parametrize("alt, az, sv_range", sun_vector_in_out)
-def test_get_sun_vector(alt, az, sv_range):
-    vector_x, vector_y = sv.get_sun_vector(alt, az)
-    sign_x, sign_y = sv_range
-    if sign_x < 0:
-        assert vector_x < 0
-    else:
-        assert vector_x >= 0
-    if sign_y < 0:
-        assert vector_y < 0
-    else:
-        assert vector_y >= 0
+def test_get_sun_vector_0_to_90():
+    prev_x, prev_y = sv.get_sun_vector(60, 0)
+    for deg in range(1, 91):
+        curr_x, curr_y = sv.get_sun_vector(60, deg)
+        assert prev_x > curr_x
+        assert prev_y < curr_y
+
+
+def test_get_sun_vector_91_to_180():
+    prev_x, prev_y = sv.get_sun_vector(60, 91)
+    for deg in range(92, 181):
+        curr_x, curr_y = sv.get_sun_vector(60, deg)
+        assert prev_x < curr_x
+        assert prev_y < curr_y
+
+
+def test_get_sun_vector_181_to_270():
+    prev_x, prev_y = sv.get_sun_vector(60, 181)
+    for deg in range(182, 271):
+        curr_x, curr_y = sv.get_sun_vector(60, deg)
+        assert prev_x < curr_x
+        assert prev_y > curr_y
+
+
+def test_get_sun_vector_271_to_359():
+    prev_x, prev_y = sv.get_sun_vector(60, 271)
+    for deg in range(272, 360):
+        curr_x, curr_y = sv.get_sun_vector(60, deg)
+        assert prev_x > curr_x
+        assert prev_y > curr_y
 
 
 def test_spatial_filter():
@@ -67,12 +79,3 @@ def test_get_shadow_from_data():
 
 def test_shadow_from_points():
     pass
-
-
-def test_init_bounding_box():
-    pass
-
-
-def test_get_bounding_box():
-    pass
-
