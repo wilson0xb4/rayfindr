@@ -10,13 +10,18 @@ language: python
 python:
   - "2.7"
 
+# virtualenv:
+#   system_site_packages: true
+
 # Uncomment for GDAL intall if needed for testing
-# before_install:
-#     - sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
-#     - sudo apt-get -y update
-#     - sudo apt-get -y install python-gdal libgdal-dev libgdal1-dev libgdal-doc gdal-bin
+before_install:
+    - sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
+    - sudo apt-get -y update
+    - sudo apt-get -y install python-gdal libgdal-dev libgdal1-dev libgdal-doc gdal-bin
 ## command to install dependencies
-install: 'pip install -r requirements.txt'
+install:
+    - 'pip install -r requirements.txt'
+    - 'pip install pygdal==1.10.0'
 
 ## Script to run
 script: py.test
