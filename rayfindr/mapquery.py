@@ -40,6 +40,7 @@ def spatial_filter(la_min, la_max, lo_min, lo_max):
             points = parsed['geometry']['coordinates']
         except TypeError:
             continue
-        buildings.append((height, points))
+        if height > 0:
+            buildings.append((height, points))
 
     return buildings
