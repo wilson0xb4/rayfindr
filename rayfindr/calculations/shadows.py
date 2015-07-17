@@ -3,6 +3,20 @@ import json
 
 
 def get_shadow_from_data(sunvector, data):
+    """
+    Return JSON response using get_shadow_from_points function, and unioning
+    polygon shapes into one output.
+
+    Inputs:
+        Sunvector: Expected tuple of x and y vector multiplier. This data is
+        provided by sun_vector.py.
+        Data: Expected polygon shapes from building feature data passed in
+        as shape data.
+
+    Output:
+        Results: JSON output contains feature data unioned together as one
+        complete data package.
+    """
     result = None
     multi_building = ogr.Geometry(ogr.wkbMultiPolygon)
 
