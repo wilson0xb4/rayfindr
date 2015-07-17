@@ -18,7 +18,7 @@ def test_client_connects_to_api():
 
 
 @given('I am a client with a time and location')
-def i_am_a_client_with_a_time_and_location(app):
+def i_am_a_client_with_a_time_and_location():
     """I am a client with a time and location."""
     url = "/api_request"
     d_time = datetime.utcnow()
@@ -35,14 +35,17 @@ def i_am_a_client_with_a_time_and_location(app):
         "boundLonMin": -122.3354727,
         "boundLonMax": -122.3371303
     }
-    response = app.post_json(url, params)
-    return dict(response=response)
+    return dict(url=url, d_time=d_time, params=params, response='')
 
 
 @when('I send an AJAX POST request')
-def i_send_an_ajax_post_request():
+def i_send_an_ajax_post_request(i_am_a_client_with_a_time_and_location, app):
     """I send an AJAX POST request."""
-
+    client = i_am_a_client_with_a_time_and_location
+    url = client['url']
+    params = client['params']
+    response = app.post_json(url, params)
+    client['response'] = response
 
 @then('I should recieve a JSON response with shadow data')
 def i_should_recieve_a_json_response_with_shadow_data():
