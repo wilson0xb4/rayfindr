@@ -45,6 +45,11 @@ def num_unfiltered_features():
 
 
 @pytest.fixture()
+def sun_vector():
+    return (-0.9104618365153205, 0.20902538030100823)
+
+
+@pytest.fixture()
 def feature_tuples():
     tuples = [
         (104,
