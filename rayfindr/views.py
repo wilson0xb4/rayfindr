@@ -14,11 +14,6 @@ def my_view(request):
     return {'project': 'rayfindr'}
 
 
-@view_config(route_name='json_test', renderer='json')
-def test_json(request):
-    return {'text': 'Hello World'}
-
-
 @view_config(route_name='api_request', renderer='json')
 def api_request(request):
     api = json.loads(request.body)
