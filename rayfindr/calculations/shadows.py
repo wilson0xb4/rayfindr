@@ -7,11 +7,18 @@ def get_shadow_from_data(sunvector, data):
     multi_building = ogr.Geometry(ogr.wkbMultiPolygon)
 
     for building in data:
-        geo_building = get_shadow_from_points(sunvector, *building)
+        try:
+            geo_building = get_shadow_from_points(sunvector, *building)
+        except TypeError:
+            continue
+
         multi_building.AddGeometry(geo_building)
         result = multi_building.UnionCascaded()
 
-    return json.loads(result.ExportToJson())
+    try:
+        return json.loads(result.ExportToJson())
+    except AttributeError:
+        return {"error": "something broke?"}
 
 
 def get_shadow_from_points(sunvector, height, footprint):

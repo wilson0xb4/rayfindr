@@ -42,7 +42,7 @@ def api_request(request):
 
     """Check if sun is set"""
     if altitude <= 0:
-        return {}
+        return {"error": "night"}
 
     vx, vy = get_sun_vector(altitude, azimuth)
     geojson = shadow((vx, vy), shp_data)
