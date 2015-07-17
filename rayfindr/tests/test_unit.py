@@ -3,13 +3,6 @@ from datetime import datetime
 from rayfindr.calculations import sun_vector as sv
 
 
-def test_receive_location():
-    pass
-
-
-def test_building_data():
-    pass
-
 azimuth_in_out = [
     [datetime(2015, 7, 16, 14), (70, 75)],
     [datetime(2015, 7, 16, 20), (170, 175)],
@@ -62,3 +55,24 @@ def test_get_sun_vector(alt, az, sv_range):
         assert vector_y < 0
     else:
         assert vector_y >= 0
+
+
+def test_spatial_filter():
+    pass
+
+
+def test_get_shadow_from_data():
+    pass
+
+
+def test_shadow_from_points():
+    pass
+
+
+def test_init_bounding_box():
+    pass
+
+
+def test_get_bounding_box():
+    pass
+
