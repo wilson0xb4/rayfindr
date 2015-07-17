@@ -21,7 +21,7 @@ before_install:
 ## command to install dependencies
 install:
     - 'pip install -r requirements.txt'
-    - 'pip install pygdal'
+    - 'pip install pygdal==1.10.0'
 
 ## Script to run
 script: py.test
