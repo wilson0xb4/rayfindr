@@ -2,6 +2,7 @@
 """Rayfindr API feature tests."""
 
 from datetime import datetime
+import json
 
 from pytest_bdd import (
     given,
@@ -22,20 +23,28 @@ def i_am_a_client_with_a_time_and_location():
     """I am a client with a time and location."""
     url = "/api_request"
     d_time = datetime.utcnow()
+    year = d_time.year
+    month = d_time.month
+    day = d_time.day
+    hour = d_time.hour
+    minute = d_time.min
+    d_time_str = json.dumps(d_time)
+
     params = {
         "lat": 47.6229,
         "lon": -122.3363,
-        "year": d_time.year(),
-        "month": d_time.month(),
-        "day": d_time.d_time(),
-        "hour": d_time.hour(),
-        "minute": d_time.minute(),
+        "year": year,
+        "month": month,
+        "day": day,
+        "hour": hour,
+        "minute": minute,
         "boundLatMin": 47.6223566,
         "boundLatMax": 47.6234413,
         "boundLonMin": -122.3354727,
         "boundLonMax": -122.3371303
     }
-    return dict(url=url, d_time=d_time, params=params, response='')
+    params = json.dumps(params)
+    return dict(url=url, d_time=d_time_str, params=params, response='')
 
 
 @when('I send an AJAX POST request')
@@ -44,15 +53,19 @@ def i_send_an_ajax_post_request(i_am_a_client_with_a_time_and_location, app):
     client = i_am_a_client_with_a_time_and_location
     url = client['url']
     params = client['params']
-    response = app.post_json(url, params)
+    response = app.post(url, params, xhr=True)
     client['response'] = response
 
+
 @then('I should recieve a JSON response with shadow data')
-def i_should_recieve_a_json_response_with_shadow_data():
+def i_should_recieve_a_json_response_with_shadow_data(i_am_a_client_with_a_time_and_location):
     """I should recieve a JSON response with shadow data."""
+    response = i_am_a_client_with_a_time_and_location['response']
+    assert True
 
 
 @then('the shadow data should match my time and location')
-def the_shadow_data_should_match_my_time_and_location():
+def the_shadow_data_should_match_my_time_and_location(i_am_a_client_with_a_time_and_location):
     """the shadow data should match my time and location."""
-
+    client = i_am_a_client_with_a_time_and_location
+    assert True
