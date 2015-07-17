@@ -22,7 +22,6 @@ def get_bounding_box(
     lon = math.radians(longitude_in_degrees)
 
     earth_rad = 6371
-    # Radius of the parallel at given latitude
     parallel_radius = earth_rad * math.cos(lat)
 
     lat_min = lat - half_side_in_km / earth_rad

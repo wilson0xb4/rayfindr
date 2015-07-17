@@ -17,9 +17,10 @@ def get_altitude(date, lat, lon):
     return int(round(GetAltitude(lat, lon, date)))
 
 
-# reference:
-# http://www.powerfromthesun.net/Book/chapter03/chapter03.html#3.3.1 Simple Shadows
 def get_sun_vector(altitude, azimuth):
+    """reference:
+    powerfromthesun.net/Book/chapter03/chapter03.html#3.3.1 Simple Shadows"""
+
     """Return a vector representing shadow projection of the sun.
 
     Inputs:
