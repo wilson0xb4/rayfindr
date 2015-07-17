@@ -3,6 +3,16 @@ from Pysolar import GetAltitude, GetAzimuth
 
 
 def get_azimuth(date, lat, lon):
+    """
+    Return the horizontal position of the sun as azimuth in degrees, North
+    being 0 and increasing positively to 359 in clockwise rotation.
+
+    Inputs:
+        Date: UTC Timezone representation of current date/time. Currently
+        calculates to the minute.
+        Lat: Current latitude provided by HTML5 location data from client.
+        Lon: Current longitude provided by HTML5 location data from client.
+    """
     azimuth = GetAzimuth(lat, lon, date)
     if azimuth < -180:
         azimuth = abs(azimuth) - 180
@@ -14,6 +24,15 @@ def get_azimuth(date, lat, lon):
 
 
 def get_altitude(date, lat, lon):
+    """
+    Return the altitude of the sun from the horizon in degrees.
+
+    Inputs:
+        Date: UTC Timezone representation of current date/time. Currently
+        calculates to the minute.
+        Lat: Current latitude provided by HTML5 location data from client.
+        Lon: Current longitude provided by HTML5 location data from client.
+    """
     return int(round(GetAltitude(lat, lon, date)))
 
 
