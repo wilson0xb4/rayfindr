@@ -10,27 +10,27 @@ def test_receive_location():
 def test_building_data():
     pass
 
-azimuth_input_output = [
+azimuth_in_out = [
     [datetime(2015, 7, 16, 14), (70, 75)],
     [datetime(2015, 7, 16, 20), (170, 175)],
     [datetime(2015, 7, 17, 2), (280, 285)]
 ]
 
 
-altitude_input_output = [
+altitude_in_out = [
     [datetime(2015, 7, 16, 14), (10, 15)],
     [datetime(2015, 7, 16, 20), (60, 65)],
     [datetime(2015, 7, 17, 2), (15, 20)]
 ]
 
-sun_vector_input_output = [
+sun_vector_in_out = [
     [13.1, 72.57, (-1, -1)],
     [63.52, 171.91, (-1, 1)],
     [18.07, 282.03, (1, -1)]
 ]
 
 
-@pytest.mark.parametrize("date, az_range", azimuth_input_output)
+@pytest.mark.parametrize("date, az_range", azimuth_in_out)
 def test_get_azimuth(date, az_range):
     lat = 47.6062095
     lon = -122.3320708
@@ -40,7 +40,7 @@ def test_get_azimuth(date, az_range):
     assert actual > az_low and actual < az_high
 
 
-@pytest.mark.parametrize("date, alt_range", altitude_input_output)
+@pytest.mark.parametrize("date, alt_range", altitude_in_out)
 def test_get_altitude(date, alt_range):
     lat = 47.6062095
     lon = -122.3320708
@@ -50,7 +50,7 @@ def test_get_altitude(date, alt_range):
     assert actual > az_low and actual < az_high
 
 
-@pytest.mark.parametrize("alt, az, sv_range", sun_vector_input_output)
+@pytest.mark.parametrize("alt, az, sv_range", sun_vector_in_out)
 def test_get_sun_vector(alt, az, sv_range):
     vector_x, vector_y = sv.get_sun_vector(alt, az)
     sign_x, sign_y = sv_range
