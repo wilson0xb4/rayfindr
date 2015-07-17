@@ -27,8 +27,7 @@ def i_am_a_client_with_a_time_and_location():
     month = d_time.month
     day = d_time.day
     hour = d_time.hour
-    minute = d_time.min
-    d_time_str = json.dumps(d_time)
+    minute = d_time.minute
 
     params = {
         "lat": 47.6229,
@@ -44,7 +43,7 @@ def i_am_a_client_with_a_time_and_location():
         "boundLonMax": -122.3371303
     }
     params = json.dumps(params)
-    return dict(url=url, d_time=d_time_str, params=params, response='')
+    return dict(url=url, params=params, response='')
 
 
 @when('I send an AJAX POST request')
