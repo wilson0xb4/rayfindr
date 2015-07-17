@@ -46,6 +46,7 @@ def test_get_sun_vector_0_to_90():
         curr_x, curr_y = sv.get_sun_vector(60, deg)
         assert prev_x > curr_x
         assert prev_y < curr_y
+        prev_x, prev_y = curr_x, curr_y
 
 
 def test_get_sun_vector_91_to_180():
@@ -54,6 +55,7 @@ def test_get_sun_vector_91_to_180():
         curr_x, curr_y = sv.get_sun_vector(60, deg)
         assert prev_x < curr_x
         assert prev_y < curr_y
+        prev_x, prev_y = curr_x, curr_y
 
 
 def test_get_sun_vector_181_to_270():
@@ -62,6 +64,7 @@ def test_get_sun_vector_181_to_270():
         curr_x, curr_y = sv.get_sun_vector(60, deg)
         assert prev_x < curr_x
         assert prev_y > curr_y
+        prev_x, prev_y = curr_x, curr_y
 
 
 def test_get_sun_vector_271_to_359():
@@ -70,6 +73,7 @@ def test_get_sun_vector_271_to_359():
         curr_x, curr_y = sv.get_sun_vector(60, deg)
         assert prev_x > curr_x
         assert prev_y > curr_y
+        prev_x, prev_y = curr_x, curr_y
 
 
 def test_spatial_filter(num_unfiltered_features):
