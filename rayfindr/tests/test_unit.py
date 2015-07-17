@@ -72,15 +72,17 @@ def test_get_sun_vector_271_to_359():
         assert prev_y > curr_y
 
 
-def test_spatial_filter():
+def test_spatial_filter(num_unfiltered_features):
     shapefile = os.path.join(HERE, 'tests/code_fellows/code_fellows.shp')
     la_min, la_max, lo_min, lo_max = (47.6197, 47.6244, -122.3301, -122.3383)
-    features = spatial_filter(
+    filtered = spatial_filter(
         la_min, la_max, lo_min, lo_max, datafile=shapefile
     )
-    sorted_height = sorted(features, key=lambda feat: feat[0])
+    num_filtered_features = len(filtered)
+    assert num_filtered_features < num_unfiltered_features
+
+    sorted_height = sorted(filtered, key=lambda feat: feat[0])
     tallest = sorted_height[-1]
-    assert len(sorted_height) == 121
     assert tallest[0] == 277
 
 

@@ -1,6 +1,10 @@
+import json
+import os
 import pytest
 import requests
-import json
+
+from osgeo import ogr
+from rayfindr.mapquery import HERE
 
 
 @pytest.fixture()
@@ -31,5 +35,10 @@ def client_request(lat, lon):
 
 
 @pytest.fixture()
-def tile_cache():
-    return {'12:00:00': {(-122.9087, 47.2404): 'tile'}}
+def num_unfiltered_features():
+    shapefile = os.path.join(HERE, 'tests/code_fellows/code_fellows.shp')
+    driver = ogr.GetDriverByName('ESRI Shapefile')
+    datasource = driver.Open(shapefile)
+    layer = datasource.GetLayer()
+    feature_count = layer.GetFeatureCount()
+    return feature_count
