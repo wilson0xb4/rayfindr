@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import os
 import pytest
 from datetime import datetime
+from osgeo import ogr
 from rayfindr.calculations import sun_vector as sv
 from rayfindr.calculations import shadows as sh
 from rayfindr.mapquery import spatial_filter, HERE
@@ -92,12 +93,13 @@ def test_spatial_filter(num_unfiltered_features):
     assert tallest[0] == 277
 
 
-def test_shadow_from_points():
-    pass
+def test_shadow_from_points(sun_vector, feature_tuples):
+    height, footprint = feature_tuples[0]
+    output = sh.get_shadow_from_points(sun_vector, height, footprint)
+    assert isinstance(output, ogr.Geometry)
 
 
-def test_get_shadow_from_data(feature_tuples):
-    sun_vector = (-0.9104618365153205, 0.20902538030100823)
+def test_get_shadow_from_data(sun_vector, feature_tuples):
     output = sh.get_shadow_from_data(sun_vector, feature_tuples)
     assert output['type'] == 'MultiPolygon'
     assert 'coordinates' in output
