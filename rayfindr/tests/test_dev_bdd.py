@@ -60,11 +60,7 @@ def i_send_an_ajax_post_request(i_am_a_client_with_a_time_and_location, app):
 def i_should_recieve_a_json_response_with_shadow_data(i_am_a_client_with_a_time_and_location):
     """I should recieve a JSON response with shadow data."""
     response = i_am_a_client_with_a_time_and_location['response']
-    assert True
-
-
-@then('the shadow data should match my time and location')
-def the_shadow_data_should_match_my_time_and_location(i_am_a_client_with_a_time_and_location):
-    """the shadow data should match my time and location."""
-    client = i_am_a_client_with_a_time_and_location
-    assert True
+    assert response.status_code == 200
+    body = json.loads(response.body)
+    assert body['type'] == 'MultiPolygon'
+    assert 'coordinates' in body
