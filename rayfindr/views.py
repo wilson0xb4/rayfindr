@@ -31,7 +31,11 @@ def api_request(request):
 
     shp_data = mapquery.spatial_filter(la_min, la_max, lo_min, lo_max)
 
-    d_time = datetime(year, month, day, hour, minute)
+    try:
+        d_time = datetime(year, month, day, hour, minute)
+    except ValueError as e:
+        return {"error": e}
+
     altitude = get_altitude(d_time, lat, lon)
     azimuth = get_azimuth(d_time, lat, lon)
 
