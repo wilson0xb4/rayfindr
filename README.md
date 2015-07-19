@@ -10,3 +10,13 @@ client: [client.rayfindr.com](http://client.rayfindr.com)
 ## API
 explain how to make an api call....
 and show the response?
+
+## Connected Repositories
+- [AWS ECS Deployment Scripts](https://github.com/wilson0xb4/rayfindr-config)
+- [Client](https://github.com/MigrantJ/rayfindr-client)
+
+## Collaborators
+- [Jim Grant](https://github.com/MigrantJ)
+- [Scott Schmidt](https://github.com/sjschmidt44)
+- [Jonathan Stallings](https://github.com/jonathanstallings)
+- [Andrew Wilson](https://github.com/wilson0xb4)
