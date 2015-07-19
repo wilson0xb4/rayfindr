@@ -34,7 +34,7 @@ def api_request(request):
     try:
         d_time = datetime(year, month, day, hour, minute)
     except ValueError as e:
-        return {"error": e}
+        return {"error": str(e)}
 
     altitude = get_altitude(d_time, lat, lon)
     azimuth = get_azimuth(d_time, lat, lon)
